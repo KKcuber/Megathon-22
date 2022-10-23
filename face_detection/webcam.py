@@ -51,7 +51,7 @@ with warnings.catch_warnings():
                 is_recognized = [closest_distances[0][i][0] <= 0.5 for i in range(len(face_locations))]
 
                 # predict classes and cull classifications that are not with high confidence
-                predictions = [(le.inverse_transform(int(pred)).title(), loc) if rec else ("Unknown", loc) for pred, loc, rec in
+                predictions = [(le.inverse_transform([int(pred)])[0], loc) if rec else ("Unknown", loc) for pred, loc, rec in
                                zip(clf.predict(face_encodings), face_locations, is_recognized)]
 
             # # Predict the unknown faces in the video frame
