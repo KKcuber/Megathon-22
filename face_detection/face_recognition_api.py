@@ -1,6 +1,8 @@
 import scipy.misc
 import dlib
 import numpy as np
+import cv2
+
 from matplotlib.pyplot import imread
  
 
@@ -75,13 +77,14 @@ def load_image_file(filename, mode='RGB'):
         baseheight = 500
         w = (baseheight / img.shape[0])
         p = int(img.shape[1] * w)
-        img = scipy.misc.imresize(img, (baseheight, p))
+#img = scipy.misc.imresize(img, (baseheight, p))
+        img = cv2.resize(img, (p, baseheight))
     elif img.shape[1] > 800:
         baseheight = 500
         w = (baseheight / img.shape[1])
         p = int(img.shape[0] * w)
-        img = scipy.misc.imresize(img, (p, baseheight))
-
+        #img = scipy.misc.imresize(img, (p, baseheight))
+        img = cv2.resize(img, (p, baseheight))
     return img
 
 
