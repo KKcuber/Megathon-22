@@ -1,10 +1,9 @@
-import winsound
 import tensorflow as tf
 frequency = 2500  # Set frequency to 2500
 duration = 1500  # Set duration to 1500 ms == 1.5 sec
 import numpy as np
 import cv2
-new_model = tf.keras.models.load_model('C:/Users/Kushagra/programming/Megathon-22/sleep_detection/my_model.h5')
+new_model = tf.keras.models.load_model('my_model.h5')
 path = "haarcascade_frontalface_default.xml"
 faceCascade = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
 cap = cv2.VideoCapture(1)
@@ -34,7 +33,6 @@ while True:
         if len(eyess) == 0:
             print("Eyes are not detected")
         else:
-            print("hi")
             for (ex, ey, ew, eh) in eyess:
                 eyes_roi = roi_color[ey: ey+eh, ex: ex+ew]
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -80,7 +78,6 @@ while True:
             cv2.rectangle(frame, (x1, y1), (x1 + w1, y1 + h1), (0,0,0), -1)
             #Add text
             cv2.putText(frame, "Sleep Alert !!!", (x1 + int(w1/10), y1 + int(h1/2)), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0,0,255), 2)
-            winsound.Beep(frequency, duration)
             counter = 0
     cv2.imshow("Drowsiness Detection", frame)
     if cv2.waitKey(2) & 0xFF == ord('q'):
